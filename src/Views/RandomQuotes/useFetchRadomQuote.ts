@@ -7,7 +7,7 @@ interface RandomQuotesQueryResponse extends Quote {}
 
 export const useFetchRadomQuote =
   (): UseFetchResponse<RandomQuotesQueryResponse> => {
-    const { isLoading, isSuccess, error, data, refetch } = useQuery<
+    const { isFetching, isLoading, isSuccess, error, data, refetch } = useQuery<
       Quote,
       Error
     >(
@@ -22,7 +22,7 @@ export const useFetchRadomQuote =
     );
 
     return {
-      isLoading,
+      isLoading: isLoading || isFetching,
       isSuccess,
       error,
       data,
