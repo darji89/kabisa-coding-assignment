@@ -1,35 +1,31 @@
 import axios from 'axios';
-import { useQuery, UseQueryResult } from 'react-query';
+import { useQuery } from 'react-query';
+import { BASE_URL, END_POINTS } from '../../utils/constants';
+import { Quote, UseFetchResponse } from '../../utils/types';
 
-interface UseFetchRadonQuote
-  extends Pick<
-    UseQueryResult<RandomQuotesQueryResponse, Error>,
-    'data' | 'error' | 'refetch' | 'isLoading' | 'isSuccess'
-  > {}
+interface RandomQuotesQueryResponse extends Quote {}
 
-interface RandomQuotesQueryResponse {
-  author: string;
-  id: number;
-  quote: string;
-  permalink: string;
-}
-
-export const useFetchRadomQuote = (): UseFetchRadonQuote => {
-  const { isLoading, isSuccess, error, data, refetch } = useQuery<
-    RandomQuotesQueryResponse,
-    Error
-  >('randomQuotes', async () => {
-    const { data: response } = await axios.get<RandomQuotesQueryResponse>(
-      'http://quotes.stormconsultancy.co.uk/random.json'
+export const useFetchRadomQuote =
+  (): UseFetchResponse<RandomQuotesQueryResponse> => {
+    const { isLoading, isSuccess, error, data, refetch } = useQuery<
+      Quote,
+      Error
+    >(
+      'randomQuotes',
+      async () => {
+        const { data: response } = await axios.get<RandomQuotesQueryResponse>(
+          `${BASE_URL}${END_POINTS.random}`
+        );
+        return response;
+      },
+      { refetchOnWindowFocus: false }
     );
-    return response;
-  });
 
-  return {
-    isLoading,
-    isSuccess,
-    error,
-    data,
-    refetch,
+    return {
+      isLoading,
+      isSuccess,
+      error,
+      data,
+      refetch,
+    };
   };
-};
