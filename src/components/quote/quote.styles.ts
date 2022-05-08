@@ -5,6 +5,11 @@ export const StyledContainer = styled.div`
   position: relative;
   margin: 0 auto;
   max-width: 600px;
+  border-radius: 50px;
+
+  &:not(:nth-child(0)) {
+    margin-bottom: 100px;
+  }
 `;
 
 export const StyledStartQuoteIcon = styled.img.attrs({

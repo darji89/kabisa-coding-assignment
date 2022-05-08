@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import { RandomQuotes } from './views/RandomQuotes/RandomQoutes';
+import { PopularQuotes } from './views/PopularQuotes/PopularQuotes';
 
 const queryClient = new QueryClient();
 
@@ -91,6 +92,24 @@ const StyledIconText = styled.p`
   text-align: center;
 `;
 
+const StyledContent = styled.div`
+  flex: 1;
+  overflow-y: scroll;
+`;
+
+const StyledFooter = styled.footer`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 45px;
+`;
+
+const StyledFooterText = styled.p`
+  font-size: 10px;
+`;
+
 function App() {
   // Todo: refactor to use a routing lib.
   const [route, setRoute] = useState<'start' | 'random' | 'popular'>('random');
@@ -127,7 +146,7 @@ function App() {
       return <RandomQuotes />;
     }
 
-    return null;
+    return <PopularQuotes />;
   }, [route]);
 
   return (
@@ -140,7 +159,10 @@ function App() {
           <StyledHeaderTitle>{route}</StyledHeaderTitle>
           <StyledHeaderSides />
         </StyledHeader>
-        {renderConent()}
+        <StyledContent>{renderConent()}</StyledContent>
+        <StyledFooter>
+          <StyledFooterText>- Kabisa coding assignment -</StyledFooterText>
+        </StyledFooter>
       </div>
     </QueryClientProvider>
   );
