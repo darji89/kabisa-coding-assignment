@@ -1,46 +1,57 @@
 import React, { FC } from 'react';
 import { useFetchPopularQuotes } from './useFetchPopularQuotes';
-import styled from 'styled-components';
 import { Quote } from '../../components/quote/Quote';
 import { POPULAR_QUOTES_IDS } from './popularQuotes.const';
-
-const StyledTitle = styled.h2`
-  color: #4d4d4d;
-  flex: 1;
-  font-size: 22px;
-  letter-spacing: 4px;
-  font-weight: 800;
-  text-align: center;
-`;
-
-const StyledPopularRoutes = styled.div`
-  width: 100%;
-  padding-bottom: 100px;
-`;
+import { StatusIcon } from '../../components/statusIcon/StatusIcon';
+import {
+  faExclamationTriangle,
+  faHeartCrack,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons';
+import { StyledPopularRoutes } from './popularQuotes.styles';
 
 export const PopularQuotes: FC = () => {
   const { isLoading, error, data } = useFetchPopularQuotes();
 
   function renderContent() {
     if (isLoading) {
-      return <StyledTitle data-testid='loader'>Loading...</StyledTitle>;
+      return (
+        <StatusIcon
+          testId={POPULAR_QUOTES_IDS.loadingStatus}
+          pulse
+          icon={faSpinner}
+          text='Loading...'
+        />
+      );
     }
 
     if (error) {
-      return <StyledTitle data-testid='error'>Error...</StyledTitle>;
+      return (
+        <StatusIcon
+          testId={POPULAR_QUOTES_IDS.errorStatus}
+          icon={faExclamationTriangle}
+          text='Error...'
+        />
+      );
     }
 
     if (!data) {
       return (
-        <StyledTitle data-testid='noData'>
-          Guess there's really nothing to say...
-        </StyledTitle>
+        <StatusIcon
+          testId={POPULAR_QUOTES_IDS.noDataStatus}
+          icon={faHeartCrack}
+          text='Where did all the quotes go?'
+        />
       );
     }
 
-    return data.map(({ author, id, permalink, quote }) => (
-      <Quote author={author} key={id} link={permalink} text={quote} />
-    ));
+    return (
+      <div data-testid={POPULAR_QUOTES_IDS.quotesContainer}>
+        {data.map(({ author, id, permalink, quote }) => (
+          <Quote author={author} key={id} link={permalink} text={quote} />
+        ))}
+      </div>
+    );
   }
 
   return (

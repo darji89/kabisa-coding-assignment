@@ -43,7 +43,7 @@ describe('<RandomQoutes />', () => {
     expect(getByTestId(RANDOM_QUOTES_IDS.errorStatus)).toBeTruthy();
   });
 
-  it('should show error state', () => {
+  it('should show no data state', () => {
     hookSpy.mockReturnValue({
       ...baseHookReturn,
       isLoading: false,
