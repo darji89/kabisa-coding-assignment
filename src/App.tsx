@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import './App.css';
 import { RandomQuotes } from './views/RandomQuotes/RandomQoutes';
 import { PopularQuotes } from './views/PopularQuotes/PopularQuotes';
 import {
@@ -15,6 +14,7 @@ import {
   StyledContent,
   StyledFooter,
   StyledFooterText,
+  StyledApp,
 } from './app.styles';
 import { APP_TEST_IDS } from './views/app.const';
 
@@ -64,7 +64,7 @@ function App() {
   }, [route]);
 
   return (
-    <div className='app'>
+    <StyledApp>
       <StyledHeader>
         <StyledHeaderSides>
           {route !== 'start' && (
@@ -83,7 +83,7 @@ function App() {
       <StyledFooter data-testid={APP_TEST_IDS.footer}>
         <StyledFooterText>- Kabisa coding assignment -</StyledFooterText>
       </StyledFooter>
-    </div>
+    </StyledApp>
   );
 }
 
