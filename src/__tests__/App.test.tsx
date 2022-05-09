@@ -1,9 +1,9 @@
 import { fireEvent } from '@testing-library/react';
-import App from './App';
-import { renderWithWrapper } from './setupTests';
-import { APP_TEST_IDS } from './views/app.const';
-import { POPULAR_QUOTES_IDS } from './views/PopularQuotes/popularQuotes.const';
-import { RANDOM_QUOTES_IDS } from './views/RandomQuotes/randomQuotes.const';
+import App from '../App';
+import { renderWithWrapper } from '../setupTests';
+import { APP_TEST_IDS } from '../views/app.const';
+import { POPULAR_QUOTES_IDS } from '../views/PopularQuotes/popularQuotes.const';
+import { RANDOM_QUOTES_IDS } from '../views/RandomQuotes/randomQuotes.const';
 
 describe('<App />', () => {
   it('Should render intially with start screen', () => {
