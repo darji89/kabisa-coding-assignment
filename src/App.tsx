@@ -10,6 +10,7 @@ import {
 import './App.css';
 import { RandomQuotes } from './views/RandomQuotes/RandomQoutes';
 import { PopularQuotes } from './views/PopularQuotes/PopularQuotes';
+import { StyledIcon } from './components/common/StyledComponent';
 
 const queryClient = new QueryClient();
 
@@ -19,17 +20,6 @@ const StyledHeader = styled.header`
   flex-direction: row;
   height: 45px;
   width: 100%;
-`;
-
-const StyledIcon = styled(FontAwesomeIcon).attrs({
-  color: '#4d4d4d',
-})`
-  cursor: pointer;
-  flex: 0.5;
-  opacity: 0.5;
-  &:hover {
-    opacity: 0.8;
-  }
 `;
 
 const StyledBackIcon = styled(StyledIcon).attrs({
