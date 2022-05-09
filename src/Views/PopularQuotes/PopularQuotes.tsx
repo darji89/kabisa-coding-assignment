@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useFetchPopularQuotes } from './useFetchPopularQuotes';
 import styled from 'styled-components';
 import { Quote } from '../../components/quote/Quote';
+import { POPULAR_QUOTES_IDS } from './popularQuotes.const';
 
 const StyledTitle = styled.h2`
   color: #4d4d4d;
@@ -20,27 +21,31 @@ const StyledPopularRoutes = styled.div`
 export const PopularQuotes: FC = () => {
   const { isLoading, error, data } = useFetchPopularQuotes();
 
-  if (isLoading) {
-    return <StyledTitle data-testid='loader'>Loading...</StyledTitle>;
-  }
+  function renderContent() {
+    if (isLoading) {
+      return <StyledTitle data-testid='loader'>Loading...</StyledTitle>;
+    }
 
-  if (error) {
-    return <StyledTitle data-testid='error'>Error...</StyledTitle>;
-  }
+    if (error) {
+      return <StyledTitle data-testid='error'>Error...</StyledTitle>;
+    }
 
-  if (!data) {
-    return (
-      <StyledTitle data-testid='noData'>
-        Guess there's really nothing to say...
-      </StyledTitle>
-    );
+    if (!data) {
+      return (
+        <StyledTitle data-testid='noData'>
+          Guess there's really nothing to say...
+        </StyledTitle>
+      );
+    }
+
+    return data.map(({ author, id, permalink, quote }) => (
+      <Quote author={author} key={id} link={permalink} text={quote} />
+    ));
   }
 
   return (
-    <StyledPopularRoutes>
-      {data.map(({ author, permalink, quote }) => (
-        <Quote author={author} link={permalink} text={quote} />
-      ))}
+    <StyledPopularRoutes data-testid={POPULAR_QUOTES_IDS.rootContainer}>
+      {renderContent()}
     </StyledPopularRoutes>
   );
 };

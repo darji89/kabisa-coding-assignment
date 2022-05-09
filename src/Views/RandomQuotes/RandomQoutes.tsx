@@ -14,6 +14,7 @@ import {
 import { useInterval } from '../../utils/helpers';
 import { StatusIcon } from '../../components/statusIcon/StatusIcon';
 import { StyledIcon } from '../../components/common/StyledComponent';
+import { RANDOM_QUOTES_IDS } from './randomQuotes.const';
 
 const TIMER_DELAY = 7500;
 
@@ -49,38 +50,50 @@ export const RandomQuotes: FC = () => {
     setIsplaying((value) => !value);
   }, []);
 
-  if (isLoading) {
-    return (
-      <StatusIcon testId='loader' pulse icon={faSpinner} text='Loading...' />
-    );
-  }
+  function renderContent() {
+    if (isLoading) {
+      return (
+        <StatusIcon testId='loader' pulse icon={faSpinner} text='Loading...' />
+      );
+    }
 
-  if (error) {
-    return (
-      <StatusIcon testId='error' icon={faExclamationTriangle} text='Error...' />
-    );
-  }
+    if (error) {
+      return (
+        <StatusIcon
+          testId='error'
+          icon={faExclamationTriangle}
+          text='Error...'
+        />
+      );
+    }
 
-  if (!data) {
+    if (!data) {
+      return (
+        <StatusIcon
+          testId='noData'
+          icon={faHeartCrack}
+          text="Guess there's really nothing to say..."
+        />
+      );
+    }
+
     return (
-      <StatusIcon
-        testId='noData'
-        icon={faHeartCrack}
-        text="Guess there's really nothing to say..."
-      />
+      <>
+        <Quote author={data.author} link={data.permalink} text={data.quote} />
+        <StyledActionContainer>
+          <StyledRefetchIcon onClick={handleRefetch} />
+          <StyledPlayPauseIcon
+            icon={isPlaying ? faPause : faPlay}
+            onClick={togglePlay}
+          />
+        </StyledActionContainer>
+      </>
     );
   }
 
   return (
-    <StyledRandomQuotes>
-      <Quote author={data.author} link={data.permalink} text={data.quote} />
-      <StyledActionContainer>
-        <StyledRefetchIcon onClick={handleRefetch} />
-        <StyledPlayPauseIcon
-          icon={isPlaying ? faPause : faPlay}
-          onClick={togglePlay}
-        />
-      </StyledActionContainer>
+    <StyledRandomQuotes data-testid={RANDOM_QUOTES_IDS.rootContainer}>
+      {renderContent()}
     </StyledRandomQuotes>
   );
 };
