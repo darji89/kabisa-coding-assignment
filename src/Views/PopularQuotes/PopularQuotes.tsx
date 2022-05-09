@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useFetchPopularQuotes } from './useFetchPopularQuotes';
 import styled from 'styled-components';
-import { Quote } from '../../components/quote/Quotes';
+import { Quote } from '../../components/quote/Quote';
 
 const StyledTitle = styled.h2`
   color: #4d4d4d;
@@ -38,8 +38,8 @@ export const PopularQuotes: FC = () => {
 
   return (
     <StyledPopularRoutes>
-      {data.map(({ author, quote }) => (
-        <Quote author={author} text={quote} />
+      {data.map(({ author, permalink, quote }) => (
+        <Quote author={author} link={permalink} text={quote} />
       ))}
     </StyledPopularRoutes>
   );

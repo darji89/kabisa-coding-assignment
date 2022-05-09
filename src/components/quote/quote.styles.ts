@@ -1,18 +1,22 @@
 import styled from 'styled-components';
 import QuoteIcon from '../../assets/quote.svg';
 
-export const StyledContainer = styled.div`
-  position: relative;
+export const StyledContainer = styled.div<{ isActive: boolean }>`
+  border-radius: 12px;
   margin: 0 auto;
   max-width: 600px;
-  border-radius: 50px;
+  position: relative;
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
 
   &:not(:nth-child(0)) {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
 `;
 
-export const StyledStartQuoteIcon = styled.img.attrs({
+const StyledQuoteIcon = styled.img.attrs({
   src: QuoteIcon,
 })`
   position: absolute;
@@ -21,10 +25,23 @@ export const StyledStartQuoteIcon = styled.img.attrs({
   width: 45px;
 `;
 
-export const StyledEndQuoteIcon = styled(StyledStartQuoteIcon)`
-  bottom: 0;
-  right: 0;
+export const StyledStartQuoteIcon = styled(StyledQuoteIcon)`
+  position: absolute;
+  height: 45px;
+  left: 12px;
+  opacity: 0.2;
+  top: 12px;
+  width: 45px;
+`;
+
+export const StyledEndQuoteIcon = styled(StyledQuoteIcon)`
+  height: 45px;
+  bottom: 12px;
+  opacity: 0.2;
+  position: absolute;
+  right: 12px;
   transform: rotate(180deg);
+  width: 45px;
 `;
 
 export const StyledTextContainer = styled.div`

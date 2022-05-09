@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { useFetchRadomQuote } from './useFetchRadomQuote';
-import { Quote } from '../../components/quote/Quotes';
+import { Quote } from '../../components/quote/Quote';
 import {
   faRotate,
   faShare,
@@ -31,10 +31,6 @@ const StyledActionContainer = styled.div`
 
 const StyledRefetchIcon = styled(StyledIcon).attrs({
   icon: faRotate,
-})``;
-
-const StyledRPopularIcon = styled(StyledIcon).attrs({
-  icon: faShare,
 })``;
 
 const StyledPlayPauseIcon = styled(StyledIcon)``;
@@ -77,10 +73,9 @@ export const RandomQuotes: FC = () => {
 
   return (
     <StyledRandomQuotes>
-      <Quote author={data.author} text={data.quote} />
+      <Quote author={data.author} link={data.permalink} text={data.quote} />
       <StyledActionContainer>
         <StyledRefetchIcon onClick={handleRefetch} />
-        <StyledRPopularIcon />
         <StyledPlayPauseIcon
           icon={isPlaying ? faPause : faPlay}
           onClick={togglePlay}
