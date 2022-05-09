@@ -23,7 +23,7 @@ export const TIMER_DELAY = 7500;
 export const RandomQuotes: FC = () => {
   const [isPlaying, setIsplaying] = useState(false);
   const { isLoading, error, data, refetch } = useFetchRadomQuote();
-  useInterval(refetch, isPlaying ? TIMER_DELAY : null);
+  useInterval(refetch, isPlaying ? TIMER_DELAY : undefined);
 
   function handleRefetch(): void {
     setIsplaying(false);

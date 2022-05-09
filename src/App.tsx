@@ -16,7 +16,7 @@ import {
   StyledFooterText,
   StyledApp,
 } from './app.styles';
-import { APP_TEST_IDS } from './views/app.const';
+import { APP_TEST_IDS } from './app.const';
 
 function App() {
   // Todo: refactor to use a routing lib.
