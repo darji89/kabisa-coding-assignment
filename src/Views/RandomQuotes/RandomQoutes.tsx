@@ -1,10 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
-import styled from 'styled-components';
 import { useFetchRadomQuote } from './useFetchRadomQuote';
 import { Quote } from '../../components/quote/Quote';
 import {
-  faRotate,
-  faShare,
   faPlay,
   faPause,
   faSpinner,
@@ -13,28 +10,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useInterval } from '../../utils/helpers';
 import { StatusIcon } from '../../components/statusIcon/StatusIcon';
-import { StyledIcon } from '../../components/common/StyledComponent';
 import { RANDOM_QUOTES_IDS } from './randomQuotes.const';
+import {
+  StyledActionContainer,
+  StyledRefetchIcon,
+  StyledRandomQuotes,
+  StyledPlayPauseIcon,
+} from './randomQuotes.styles';
 
-const TIMER_DELAY = 7500;
-
-const StyledRandomQuotes = styled.div`
-  flex-direction: column;
-  width: 100%;
-  max-width: 960px;
-`;
-
-const StyledActionContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 24px auto;
-`;
-
-const StyledRefetchIcon = styled(StyledIcon).attrs({
-  icon: faRotate,
-})``;
-
-const StyledPlayPauseIcon = styled(StyledIcon)``;
+export const TIMER_DELAY = 7500;
 
 export const RandomQuotes: FC = () => {
   const [isPlaying, setIsplaying] = useState(false);
@@ -53,14 +37,19 @@ export const RandomQuotes: FC = () => {
   function renderContent() {
     if (isLoading) {
       return (
-        <StatusIcon testId='loader' pulse icon={faSpinner} text='Loading...' />
+        <StatusIcon
+          testId={RANDOM_QUOTES_IDS.loadingStatus}
+          pulse
+          icon={faSpinner}
+          text='Loading...'
+        />
       );
     }
 
     if (error) {
       return (
         <StatusIcon
-          testId='error'
+          testId={RANDOM_QUOTES_IDS.errorStatus}
           icon={faExclamationTriangle}
           text='Error...'
         />
@@ -70,7 +59,7 @@ export const RandomQuotes: FC = () => {
     if (!data) {
       return (
         <StatusIcon
-          testId='noData'
+          testId={RANDOM_QUOTES_IDS.noDataStatus}
           icon={faHeartCrack}
           text="Guess there's really nothing to say..."
         />
@@ -81,8 +70,12 @@ export const RandomQuotes: FC = () => {
       <>
         <Quote author={data.author} link={data.permalink} text={data.quote} />
         <StyledActionContainer>
-          <StyledRefetchIcon onClick={handleRefetch} />
+          <StyledRefetchIcon
+            data-testid={RANDOM_QUOTES_IDS.refetchButton}
+            onClick={handleRefetch}
+          />
           <StyledPlayPauseIcon
+            data-testid={RANDOM_QUOTES_IDS.playPauseButton}
             icon={isPlaying ? faPause : faPlay}
             onClick={togglePlay}
           />
